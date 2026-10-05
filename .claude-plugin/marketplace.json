@@ -1,0 +1,12 @@
+{
+  "name": "planning-skills",
+  "owner": { "name": "songokussm" },
+  "plugins": [
+    {
+      "name": "planning",
+      "source": "./plugins/planning",
+      "description": "Planning-session skills: start and end sessions, handoffs, audits, cleanup, UX test planning.",
+      "version": "1.0.0"
+    }
+  ]
+}
