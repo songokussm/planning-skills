@@ -29,7 +29,7 @@ If no validator runs, evidence trust is unknown, never trusted. If it fails, say
 
 Read the smallest set that covers every artifact type: RUN.json, STATE.json, coverage.json; the final report, report.json, coverage summary, unresolved blockers; attempts and checkpoints; evidence manifests, logs, DOM captures, screenshots; findings.jsonl and events.jsonl.
 
-Reconcile counts across state, coverage, attempts, and report. Sample evidence from each distinct case type. Trace every validator finding to its artifact. Keep three things separate: what the report claims, what the evidence proves, what is unknown.
+Reconcile counts across state, coverage, attempts, and report. Sample evidence from each distinct case type. Judge each case by its own evidence rule: a PNG is required only when `visual_check` is true; a non-visual pass is proved by an existing test or assertion log path. A missing PNG on a non-visual case is not missing proof. Screenshot reuse is valid only within one packet with a recorded reason, unless the adapter is stricter. Trace every validator finding to its artifact. Keep three things separate: what the report claims, what the evidence proves, what is unknown.
 
 ## Explain
 

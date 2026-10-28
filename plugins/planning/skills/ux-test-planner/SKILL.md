@@ -42,8 +42,8 @@ Approval is separate: the user or an independent verifier sets `approved: true`.
 **Design or inventory**
 
 1. Read the app guide, rules, data and permission docs, prior findings, and current test artifacts. Note stale docs as drift.
-2. Build the inventory from docs, delegated source inspection, and live browsing. Per row: persona, starting state, surface, control, action, conditional visibility, expected UI, expected data, recovery path.
-3. Group rows into independent packets with prerequisites, fixtures, destructive-data limits, browser method, evidence, and dependencies.
+2. Detect the app's automated test suite (pytest-playwright, Playwright Test, or none) and record it as `test_command` in the adapter. Build the inventory from docs, delegated source inspection, existing tests, and live browsing. Per row: persona, starting state, surface, control, action, conditional visibility, expected UI, expected data, recovery path.
+3. Set `visual_check: true` only on rows that need visual judgment. Link rows to an existing test with `automated_test: {file, test_id}` where one proves the behavior. Group rows into independent packets with prerequisites, fixtures, destructive-data limits, execution method, evidence, and dependencies.
 4. Design fixtures for normal, empty, large, malformed, duplicate, invalid, and permission states, each with a reset method.
 5. Build and verify the baseline as above.
 6. Write the adapter and inventory with stable case IDs, then a runner-ready manifest and packets.
@@ -51,24 +51,30 @@ Approval is separate: the user or an independent verifier sets `approved: true`.
 **Review, resume, or synthesize**
 
 1. Load manifest, state, checkpoints, heartbeats, events, evidence, and findings before claiming anything.
-2. Resume only unfinished or invalidated cases. Requeue a `running` packet with no current heartbeat per the protocol.
+2. Resume only unfinished or invalidated cases. A full-suite rerun defaults to failed, visual, and changed-expectation cases unless the user asks for a full run. Requeue a `running` packet with no current heartbeat per the protocol.
 3. Separate app defects, usability, visual, data-integrity, accessibility, environment, and coverage gaps.
 4. Report coverage by status, listing unknown and blocked areas. Never infer coverage from elapsed time.
 5. Synthesize findings only when asked: ID, persona, workflow, reproduction, expected vs actual, evidence paths, method, confidence, severity, next action.
 
-## Browser methods
+## Execution methods
 
-Record the method on every case.
+Record `execution_method` on every case and packet. Assign the cheapest method that proves the case, in this order:
 
-- **Built-in browser:** broad journeys, discovery, screenshots.
-- **Chrome DevTools:** console, network, storage, accessibility tree, computed styles, layout and focus measurements.
-- **Playwright:** deterministic regression cases, isolated contexts, traces, approved screenshot comparison.
+1. **Deterministic test** (`playwright_pytest` or the adapter's test command): any case an existing automated test proves.
+2. **Disk-first browser CLI** (`agent_browser_cli`: `playwright-cli`, else `agent-browser`): live agent journeys when the host has a shell.
+3. **Built-in browser:** fallback when no CLI is available.
+4. **Chrome DevTools:** console, network, storage, accessibility tree, computed styles, layout and focus measurements.
+5. **Playwright MCP:** last fallback.
 
-DOM assertions alone never prove visual correctness.
+Evidence: a saved PNG only when `visual_check` is true; otherwise a test or assertion log path. Screenshot reuse is allowed within one packet with a recorded reason. DOM assertions alone never prove visual correctness.
+
+## Existing apps
+
+When a new run is planned for an app whose adapter or catalog predates these fields, migrate them first: add the test command, the methods, conditional screenshots, and in-packet reuse to the adapter; set `visual_check` and test links per row. Never edit a run that is already in progress.
 
 ## Coverage row
 
-`case_id, feature, persona, starting_state, surface, discovery_path, action, expected_ui, expected_data, error_or_cancel_path, browser_method, fixture, visual_check, integrity_check, status, last_run, evidence`
+`case_id, feature, persona, starting_state, surface, discovery_path, action, expected_ui, expected_data, error_or_cancel_path, execution_method, automated_test, fixture, visual_check, integrity_check, status, last_run, evidence`
 
 Cover, where the app supports it: navigation, search, filters, forms, uploads, wizards, modals, empty and error states; add, edit, delete, reorder, assign, save, cancel, reload; persona differences; persistence after reload and re-login; relationships and deletion effects; bad and interrupted input; consistency between create and edit surfaces; fixed defects as regression cases.
 
@@ -78,4 +84,4 @@ Narrow enough that one failure doesn't stop unrelated work. Each defines IDs, pe
 
 ## Deliver
 
-The artifacts the request needs, at their real paths, using the protocol's filenames and statuses. Mark anything incomplete as provisional.
+The artifacts the request needs, at their real paths, using the protocol's filenames and statuses. In a run prompt or handoff, DONE WHEN accepts "tests passed + log path" for non-visual cases and counts PNGs only for visual cases. Execution-only prompts ban app fixes but allow the app's existing test command. Mark anything incomplete as provisional.
