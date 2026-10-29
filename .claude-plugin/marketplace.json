@@ -6,7 +6,7 @@
       "name": "planning",
       "source": "./plugins/planning",
       "description": "Planning-session skills: start and end sessions, handoffs, audits, cleanup, UX test planning.",
-      "version": "1.1.0"
+      "version": "1.2.0"
     }
   ]
 }
