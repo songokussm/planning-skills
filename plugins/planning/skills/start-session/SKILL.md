@@ -21,7 +21,7 @@ Run one command that prints `docs/NEXT.md`, a separator, then `docs/SESSION_LOG.
 Output:
 
 ```text
-PROJECT: <folder name> - <Status line from NEXT.md>
+PROJECT: <folder name> - <Status line from NEXT.md>   (planning plugin 1.3.1)
 
 <NEXT.md entries 1-5, verbatim>
 
