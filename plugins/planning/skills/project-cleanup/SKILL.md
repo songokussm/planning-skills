@@ -10,7 +10,7 @@ One project per run. Move, never delete. The report must be good enough that the
 ## Setup
 
 1. **Project:** the one the user names, otherwise the connected folder. If the session is at the workspace root and no project is named, ask for the name. Do not list all projects as a menu. Confirm it with `test -d`.
-2. **app/ check:** `test -d <project>/app` only. Never list, read, grep, or move anything under `app/`, including in a first orientation command. Never run a recursive listing of the whole project.
+2. **Code repo check:** the project's code lives in WSL at `~/code/<project>` (the old `<project>/app/` is archived). Check it exists with `wsl test -d ~/code/<project>` (or `test -d` when already in WSL) only. Never list, read, grep, or move anything in the code repo, including in a first orientation command. Never run a recursive listing of the whole project.
 3. **Clock:** run `date +%m%d/%H%M` once in the user's local time zone and reuse it for every path this run.
 4. **Rules:** read `docs/RULES.md` if present. Its project-specific rules override the defaults below.
 
@@ -48,7 +48,7 @@ python scripts/cleanup_move.py diff before.json after.json results.json diff_rep
 
 `move` copies and keeps the original if a move fails, and adds `-2`, `-3` on name collisions. The `clean` field in `diff_report.json` is the verification.
 
-## Tier 3: app/ (only if it exists)
+## Tier 3: the code repo (only if it exists)
 
 Do not touch it. Fill in `references/app_cleanup_handoff_template.md` and save it to `<project>/handoffs/<MMDD>/<HHMM>/tasks/1-app-cleanup.md`. If the app's short name is unclear, ask.
 
@@ -58,6 +58,6 @@ Use counts and paths, not narrative:
 
 - Tier 1 and 2: counts per bucket and where each archive batch landed
 - UNRESOLVED: each path with a one-line reason (the part the user acts on)
-- Tier 3: handoff path and run command, or "no app/, skipped"
+- Tier 3: handoff path and run command, or "no code repo, skipped"
 
 When unsure, choose UNRESOLVED. A wrong UNRESOLVED costs nothing; a wrong ARCHIVE hides a file.

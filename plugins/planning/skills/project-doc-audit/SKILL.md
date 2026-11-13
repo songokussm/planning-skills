@@ -5,7 +5,7 @@ description: Audit one project's docs against its real implementation. Finds sta
 
 # Project Doc Audit
 
-Read-only except for the report file. Access `app/` only as the project instructions allow.
+Read-only except for the report file. Access the project's code repo (`~/code/<project>` in WSL) only as the project instructions allow.
 
 `docs/NEXT.md` and `docs/SESSION_LOG.md` are standard planning files. Do not flag them as unknown, stale, or duplicating ITEMS.md.
 

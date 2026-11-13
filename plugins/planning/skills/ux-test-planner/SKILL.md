@@ -5,13 +5,13 @@ description: Design, prepare, resume, or review a repeatable browser-based UX te
 
 # UX Test Planner
 
-Owns the plan and the project-level test artifacts (adapter, inventory, fixtures, baseline builder, registry, manifest, packets). A separate runner executes them. Access the project's code repo (`/home/tteal/code/<project>` in WSL) only as the project instructions allow.
+Owns the plan and the project-level test artifacts (adapter, inventory, fixtures, baseline builder, registry, manifest, packets). A separate runner executes them. Access the project's code repo (`~/code/<project>` in WSL) only as the project instructions allow.
 
 ## Read first
 
 The shared protocol defines run states, packets, heartbeats, evidence, findings, statuses, and report formats. Read it before writing any run artifact:
 
-- `\\wsl.localhost\Ubuntu\home\tteal\code\shared\coding\ux-testing\PROTOCOL.md` (`/home/tteal/code/shared/coding/ux-testing/` inside WSL), plus the matching files in `schemas/` and `templates/` beside it. This WSL folder is the only copy; the coding layer runs its scripts.
+- `~/code/shared/coding/ux-testing/PROTOCOL.md` (WSL home), plus the matching files in `schemas/` and `templates/` beside it. This WSL folder is the only copy; the coding layer runs its scripts.
 
 Do not edit or duplicate it. If a referenced file is missing, record the gap and mark output provisional.
 

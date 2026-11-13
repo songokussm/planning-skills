@@ -5,7 +5,7 @@ description: Review a project's newest UX test run, check whether its evidence c
 
 # UX Test Review
 
-Read-only. Never modify `app/`, a run folder, or production data.
+Read-only. Never modify the code repo (`~/code/<project>`), a run folder, or production data.
 
 ## Find the run
 

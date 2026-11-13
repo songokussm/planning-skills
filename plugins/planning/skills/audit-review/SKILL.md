@@ -5,7 +5,7 @@ description: Rank and merge multi-model audit reports already saved in a project
 
 # Audit Review
 
-Run without asking for clarification. Access `app/` only as the project instructions allow.
+Run without asking for clarification. Access the project's code repo (`~/code/<project>` in WSL) only as the project instructions allow.
 
 ## 0. Confirm these are audit reports
 
